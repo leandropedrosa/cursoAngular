@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="bower_components/angular/angular.js"></script>
+
+    <script src="app/js/index-controller4.js"></script>
+    <script src="app/js/filters/maiusculo-filter.js"></script>
+    <script src="app/js/service/alert-service.js"></script>
+
+    <script src="bower_components/angular-messages/angular-messages.js"></script>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.css"/>
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css"/>
+    <script src="bower_components/angular-ui-growl/src/growl.js"></script>
+    <link rel="stylesheet" href="bower_components/angular-ui-growl/css/growl.css"/>
+</head>
+<body ng-app="validacao">
+<div ng-controller="IndexController4" ng-style="styleDiv" class="container">
+    <form id="myForm" name="myForm" class="form-horizontal" novalidate>
+        <div class="panel panel-primary">
+            <div class="panel-heading">Cadastrar</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="input-group">
+                            <label for="itEmail">Email</label>
+                            <input id="itEmail"
+                                   type="email"
+                                   name="itEmail"
+                                   ng-model="entidade.email"
+                                   ng-minlength="3"
+                                   ng-maxlength="50"
+                                   required
+                                   class="form-control"
+                                   placeholder="Email">
+
+                            <div ng-messages="myForm.itEmail.$error" ng-show="myForm.itEmail.$dirty" class="help-block"
+                                 role="alert">
+                                <div ng-messages-include="mensagens.html"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--col-->
+                    <div class="col-lg-4">
+                        <div class="input-group">
+                            <label for="password">Senha</label>
+                            <input id="password"
+                                   type="password"
+                                   name="password"
+                                   ng-model="entidade.password"
+                                   ng-minlength="3"
+                                   ng-maxlength="6"
+                                   required class="form-control"
+                                   placeholder="Senha">
+
+                            <div ng-messages="myForm.password.$error" ng-show="myForm.password.$dirty"
+                                 class="help-block"
+                                 role="alert">
+                                <div ng-messages-include="mensagens.html"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--col-->
+
+                    <div class="col-lg-4">
+                        <div class="input-group">
+                            <label for="dtNascimento">Data Nascimento</label>
+                            <input id="dtNascimento"
+                                   type="date"
+                                   name="dtNascimento"
+                                   ng-model="entidade.dtNascimento"
+                                   required class="form-control">
+
+                            <div ng-messages="myForm.password.$error" ng-show="myForm.dtNascimento.$dirty"
+                                 class="help-block"
+                                 role="alert">
+                                <div ng-messages-include="mensagens.html"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--col-->
+                </div>
+                <!--row-->
+            </div>
+            <!--Painel body-->
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <button type="submit" class="btn btn-primary"
+                                ng-disabled="myForm.$invalid"
+                                ng-click="salvar()">
+                            <i class="fa fa-floppy-o"></i>
+                            Salvar
+                        </button>
+                        <button type="submit" class="btn btn-danger"
+                                ng-click="limpar()">
+                            <i class="fa fa-times"></i>
+                            Limpar
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3>{{entidade.email | maiusculo}}</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="table">
+                        <tr>
+                            <th>Email</th>
+                            <th>Senha</th>
+                            <th>Dt. Nascimento</th>
+                        </tr>
+                        <tr ng-repeat="pessoa in listaDePessoas">
+                            <td ng-bind="pessoa.email"></td>
+                            <td ng-bind="pessoa.password"></td>
+                            <td ng-bind="pessoa.dtNascimento |  date: 'dd/MM/yyyy'"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!--Painel-->
+    </form>
+</div>
+<!--Controller-->
+</body>
+</html>
